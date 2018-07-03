@@ -9,10 +9,12 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-
-    @post.update(post_params)
-
-    redirect_to post_path(@post)
+    params.each { |key, value| @post.send("#{key}=", value) if @post.has_attribute?(key) }
+    if @post.valid?
+      @post.update(post_params)
+      redirect_to post_path(@post)
+    else 
+    end
   end
 
   private
