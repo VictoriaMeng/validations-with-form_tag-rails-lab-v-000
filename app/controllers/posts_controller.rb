@@ -9,6 +9,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    binding.pry
     params.each { |key, value| @post.send("#{key}=", value) if @post.has_attribute?(key) }
     if @post.valid?
       @post.save
